@@ -63,6 +63,19 @@ Options:
   -c, --controller 
 ```
 
+At last you have to bind the generated interface and class, so that laravel will know which concret class to inject for interfaces.
+
+In App\Providers\EloquentRepositoryServiceProvider.php, add the following line.
+
+```
+<?php
+
+use App\Repository\Interfaces\Users\UserRepositoryInterface;
+use App\Repository\Eloquent\Users\UserRepository;
+...
+    $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+```
+You should bind every repositories you create.
 ### Creating Services
 
 Service will have business logics, so service might needs to access data. It should access data only from repository. (i.e service depends only on repository and not ORM)
